@@ -3,15 +3,19 @@
 #
 
 # Builds all kernels.
-all: fast fn gf is km lu tsp rt nb
+all: fast fn 
+
+# gf is km lu tsp rt nb
 
 # Builds FAST kernel.
 fast:
-	cd FAST && $(MAKE) all
+	@mkdir -p $(BINDIR)/fast
+	@cd FAST && $(MAKE) all BINDIR=$(BINDIR)/fast
 
 # Builds FN kernel.
 fn:
-	cd FN && $(MAKE) all
+	@mkdir -p $(BINDIR)/fn
+	cd FN && $(MAKE) all BINDIR=$(BINDIR)/fn
 
 # Builds GF kernel.
 gf:

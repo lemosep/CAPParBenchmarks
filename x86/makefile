@@ -1,5 +1,5 @@
 #
-# Copyright(C) 2014 Pedro H. Penna <pedrohenriquepenna@gmail.com>
+# Copyright(C) 2025 Eduardo Lemos Paschoalini
 #
 # Builds CAP Benchmark suite for x86 architecture.
 #
@@ -12,17 +12,24 @@ export LIBSRCDIR = $(CURDIR)/libsrc
 export SRCDIR    = $(CURDIR)/src
 
 # Tool chain.
-export CC = gcc
+export CC = clang
 export AR = ar
+export LLC = llc
 
 # Tool chain configuration.
-export CFLAGS = -Wall -Wextra -Werror -O3
-export CFLAGS += -I $(INCDIR)
+export CFLAGS = -Wall -Wextra -Werror -O3 
+export CFLAGS += -I$(INCDIR)
+export CFLAGS += -fopenmp
 export ARFLAGS = -vq
+export LLVMFLAGS = -emit-llvm -c 
 
 # Libraries.
 export LIB = libcapb
-export LIBS = $(LIBDIR)/$(LIB).a -lm -fopenmp 
+export LIBS = $(LIBDIR)/$(LIB).a
+export LIBARGS = -lm -fopenmp
+
+# LLVM configuration.
+export REG_ALLOC_ALGOS = fast basic greedy pbqp
 
 .PHONY: lib
 
@@ -38,5 +45,6 @@ lib:
 	
 # Cleans compilation files.
 clean:
+	rm -rf $(BINDIR)
 	cd $(LIBSRCDIR) && $(MAKE) clean
 	cd $(SRCDIR) && $(MAKE) clean
