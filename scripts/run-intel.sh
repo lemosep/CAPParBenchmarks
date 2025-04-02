@@ -11,7 +11,7 @@ export ITERATIONS=10
 mkdir -p $RESULTSDIR
 #gf is km lu tsp
 
-for kernel in fast fn gf; do
+for kernel in fast fn gf is km; do
     echo "running $kernel"
     mkdir -p $RESULTSDIR/$kernel
 
