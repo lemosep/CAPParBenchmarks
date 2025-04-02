@@ -16,7 +16,7 @@ EXEC = fn
 BC_OBJ = $(patsubst %.c, $(BC_DIR)/%.bc, $(SRC))
 
 # Final linked bytecode file.
-LINKED_BC = $(BC_DIR)/fn_linked.bc
+LINKED_BC = $(BC_DIR)/$(EXEC)_linked.bc
 OBJ_FILES = $(foreach alg, $(REG_ALLOC_ALGOS), $(BINDIR)/$(alg).intel)
 
 # Ensure required directories exist.
@@ -34,8 +34,8 @@ $(LINKED_BC): $(BC_OBJ)
 # Function to compile for different register allocation algorithms.
 define compile_for_regalloc
 $(BINDIR)/$(1).intel: $(LINKED_BC) | $(BINDIR)
-	$(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) -o $(LOCAL_BINDIR)/fn_$(1).o
-	$(CC) $(LOCAL_BINDIR)/fn_$(1).o $(LIBS) -o $(BINDIR)/$(1).intel $(LIBARGS)
+	$(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) -o $(LOCAL_BINDIR)/$(EXEC)_$(1).o
+	$(CC) $(LOCAL_BINDIR)/$(EXEC)_$(1).o $(LIBS) -o $(BINDIR)/$(1).intel $(LIBARGS)
 endef
 
 $(foreach alg, $(REG_ALLOC_ALGOS), $(eval $(call compile_for_regalloc,$(alg))))

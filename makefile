@@ -3,6 +3,8 @@
 #
 
 # Directories.
+CURRDIR = $(PWD)
+RESULTSDIR = $(CURRDIR)/results
 
 # Builds all kernels for Intel x86.
 all-x86:
@@ -21,4 +23,5 @@ all-gem5:
 
 # Cleans compilation files.
 clean:
+	rm -rf $(RESULTSDIR)
 	cd x86 && $(MAKE) clean

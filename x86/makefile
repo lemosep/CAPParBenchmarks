@@ -35,7 +35,6 @@ export REG_ALLOC_ALGOS = fast basic greedy pbqp
 
 # Builds all kernels.
 all: lib
-	mkdir -p bin
 	cd $(SRCDIR) && $(MAKE) all
 	
 # Builds kernel library.

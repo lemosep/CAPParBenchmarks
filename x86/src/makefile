@@ -2,8 +2,10 @@
 # Copyright(C) 2014 Pedro H. Penna <pedrohenriquepenna@gmail.com>
 #
 
+.PHONY: fast fn gf is
+
 # Builds all kernels.
-all: fast fn 
+all: fast fn gf is
 
 # gf is km lu tsp rt nb
 
@@ -15,15 +17,17 @@ fast:
 # Builds FN kernel.
 fn:
 	@mkdir -p $(BINDIR)/fn
-	cd FN && $(MAKE) all BINDIR=$(BINDIR)/fn
+	@cd FN && $(MAKE) all BINDIR=$(BINDIR)/fn
 
 # Builds GF kernel.
 gf:
-	cd GF && $(MAKE) all
+	@mkdir -p $(BINDIR)/gf
+	@cd GF && $(MAKE) all BINDIR=$(BINDIR)/gf
 
 # Builds IS kernel.
 is:
-	cd IS && $(MAKE) all
+	@mkdir -p $(BINDIR)/is
+	@cd IS && $(MAKE) all BINDIR=$(BINDIR)/is
 
 # Builds KM kernel.
 km:

@@ -11,7 +11,7 @@ export ITERATIONS=10
 mkdir -p $RESULTSDIR
 #gf is km lu tsp
 
-for kernel in FAST FN; do
+for kernel in fast fn gf; do
     echo "running $kernel"
     mkdir -p $RESULTSDIR/$kernel
 
@@ -22,8 +22,7 @@ for kernel in FAST FN; do
         for nprocs in 1 2 4 8 16; do
             for class in tiny small; do
                 for regalloc_algo in fast basic greedy pbqp; do
-                    $BINDIR/$kernel/$regalloc_algo.intel --verbose --class $class --nthreads $nprocs &>> $RESULTSDIR/$kernel/$class-$regalloc_algo-$nprocs.txt
-                    size $BINDIR/$kernel/$regalloc_algo.intel &>> $RESULTSDIR/$kernel/$class-$nprocs-$regalloc_algo.txt
+                    $BINDIR/$kernel/$regalloc_algo.intel --verbose --class $class --nthreads $nprocs >> $RESULTSDIR/$kernel/$class-$regalloc_algo-$nprocs.txt
                 done
             done
         done
