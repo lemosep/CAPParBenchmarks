@@ -32,11 +32,12 @@ is:
 # Builds KM kernel.
 km:	
 	@mkdir -p $(BINDIR)/km
-	cd KM && $(MAKE) all BINDIR=$(BINDIR)/km
+	@cd KM && $(MAKE) all BINDIR=$(BINDIR)/km
 
 # Builds LU kernel.
 lu:
-	cd LU && $(MAKE) all
+	@mkdir -p $(BINDIR)/lu
+	@cd LU && $(MAKE) all BINDIR=$(BINDIR)/lu
 
 # Builds TSP kernel.
 tsp:
