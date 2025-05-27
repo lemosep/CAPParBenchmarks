@@ -33,7 +33,10 @@ $(LINKED_BC): $(BC_OBJ)
 # Function to compile for different register allocation algorithms.
 define compile_for_regalloc
 $(BINDIR)/$(1).intel: $(LINKED_BC) | $(BINDIR)
-	$(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) -o $(LOCAL_BINDIR)/$(EXEC)_$(1).o
+	@echo "Compiling $(EXEC) with $(1) allocator..."
+	/usr/bin/time -f "$(1): %e seconds" \
+		$(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) \
+		-o $(LOCAL_BINDIR)/$(EXEC)_$(1).o 2>> llc_times_$(EXEC).txt
 	$(CC) $(LOCAL_BINDIR)/$(EXEC)_$(1).o $(LIBS) -o $(BINDIR)/$(1).intel $(LIBARGS)
 endef
 
@@ -44,4 +47,5 @@ all: $(LINKED_BC) $(OBJ_FILES)
 
 # Cleans compilation files.
 clean:
-	@rm -rf $(LOCAL_BINDIR)
+	@rm -rf $(LOCAL_BINDIR) llc_times_$(EXEC).txt
+
