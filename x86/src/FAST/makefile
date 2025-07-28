@@ -36,10 +36,10 @@ $(BINDIR)/$(1).intel: $(LINKED_BC) | $(BINDIR)
 	@echo "Compiling $(EXEC) with $(1) allocator..."
 
 	@{ \
+		echo -n "$(1): " >> llc_times_$(EXEC).txt; \
 		perf stat $(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) \
 			-o $(LOCAL_BINDIR)/$(EXEC)_$(1).o 2>&1 | \
-		grep 'seconds time elapsed' | \
-		sed "s/^/$(1)" >> llc_times_$(EXEC).txt ; \
+		grep 'seconds time elapsed' >> llc_times_$(EXEC).txt; \
 	}
 
 	$(CC) $(LOCAL_BINDIR)/$(EXEC)_$(1).o $(LIBS) -o $(BINDIR)/$(1).intel $(LIBARGS)
