@@ -34,9 +34,14 @@ $(LINKED_BC): $(BC_OBJ)
 define compile_for_regalloc
 $(BINDIR)/$(1).intel: $(LINKED_BC) | $(BINDIR)
 	@echo "Compiling $(EXEC) with $(1) allocator..."
-	/usr/bin/time -f "$(1): %e seconds" \
-		$(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) \
-		-o $(LOCAL_BINDIR)/$(EXEC)_$(1).o 2>> llc_times_$(EXEC).txt
+
+	@{ \
+		perf stat $(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) \
+			-o $(LOCAL_BINDIR)/$(EXEC)_$(1).o 2>&1 | \
+		grep 'seconds time elapsed' | \
+		sed "s/^/$(1)" >> llc_times_$(EXEC).txt ; \
+	}
+
 	$(CC) $(LOCAL_BINDIR)/$(EXEC)_$(1).o $(LIBS) -o $(BINDIR)/$(1).intel $(LIBARGS)
 endef
 

@@ -5,7 +5,9 @@
 .PHONY: fast fn gf is km
 
 # Builds all kernels.
-all: fast fn gf is km
+all: fast 
+
+# fn gf is km
 
 # gf is km lu tsp rt nb
 
