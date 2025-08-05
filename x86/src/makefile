@@ -2,14 +2,14 @@
 # Copyright(C) 2014 Pedro H. Penna <pedrohenriquepenna@gmail.com>
 #
 
-.PHONY: fast fn gf is km lu
+.PHONY: fast fn gf is km lu tsp
 
 # Builds all kernels.
-all: fast fn gf is km lu
+all: fast fn gf is km lu tsp
 
-get-compile-time: fast-cpt fn-cpt gf-cpt is-cpt km-cpt lu-cpt
+get-compile-time: fast-cpt fn-cpt gf-cpt is-cpt km-cpt lu-cpt tsp-cpt
 
-# tsp rt nb
+#  rt nb
 
 # FAST kernel.
 fast:
@@ -71,9 +71,15 @@ lu-cpt:
 	@echo "Generating results for LU Kernel"
 	@cd LU && $(MAKE) get-compile-time BINDIR=$(BINDIR)/lu
 
-# Builds TSP kernel.
+# TSP kernel.
 tsp:
-	cd TSP && $(MAKE) all
+	@mkdir -p $(BINDIR)/tsp
+	@cd TSP && $(MAKE) all BINDIR=$(BINDIR)/tsp
+
+tsp-cpt:
+	@echo "======================================="
+	@echo "Generating results for TSP Kernel"
+	@cd TSP && $(MAKE) get-compile-time BINDIR=$(BINDIR)/tsp 
 
 # Builds RT kernel.
 rt:
