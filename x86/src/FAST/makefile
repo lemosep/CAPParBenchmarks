@@ -46,7 +46,7 @@ all: $(LINKED_BC) $(OBJ_FILES)
 
 # Fetches compile times for all algorithms 10 times
 get-compile-time: clean all
-	@rm -rf llc_times($EXEC).txt
+	@rm -rf llc_times_$(EXEC).txt
 	@for i in $$(seq 1 10); do \
 		echo "Run $$i" >> llc_times_$(EXEC).txt; \
 		for alg in $(REG_ALLOC_ALGOS); do \
