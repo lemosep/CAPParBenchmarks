@@ -41,7 +41,11 @@ all: lib
 lib:
 	mkdir -p lib
 	cd $(LIBSRCDIR) && $(MAKE) all
-	
+
+# Gets compile time:
+get-compile-time:
+	cd $(SRCDIR) && $(MAKE) get-compile-time
+
 # Cleans compilation files.
 clean:
 	rm -rf $(BINDIR)

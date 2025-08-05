@@ -7,14 +7,19 @@
 # Builds all kernels.
 all: fast 
 
+get-compile-time: fast-cpt
+
 # fn gf is km
 
 # gf is km lu tsp rt nb
 
-# Builds FAST kernel.
+# FAST kernel.
 fast:
 	@mkdir -p $(BINDIR)/fast
 	@cd FAST && $(MAKE) all BINDIR=$(BINDIR)/fast
+
+fast-cpt:
+	@cd FAST && $(MAKE) get-compile-time BINDIR=$(BINDIR)/fast
 
 # Builds FN kernel.
 fn:
