@@ -19,6 +19,7 @@ fast:
 	@cd FAST && $(MAKE) all BINDIR=$(BINDIR)/fast
 
 fast-cpt:
+	@echo "======================================="
 	@echo "Generating results for FAST Kernel"
 	@cd FAST && $(MAKE) get-compile-time BINDIR=$(BINDIR)/fast
 
@@ -28,6 +29,7 @@ fn:
 	@cd FN && $(MAKE) all BINDIR=$(BINDIR)/fn
 
 fn-cpt:
+	@echo "======================================="
 	@echo "Generating results for FN Kernel"
 	@cd FN && $(MAKE) get-compile-time BINDIR=$(BINDIR)/fn
 
@@ -37,6 +39,7 @@ gf:
 	@cd GF && $(MAKE) all BINDIR=$(BINDIR)/gf
 
 gf-cpt:
+	@echo "======================================="
 	@echo "Generating results for GF Kernel"
 	@cd FN && $(MAKE) get-compile-time BINDIR=$(BINDIR)/gf
 
