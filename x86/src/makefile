@@ -5,11 +5,9 @@
 .PHONY: fast fn gf is km
 
 # Builds all kernels.
-all: fast fn gf is
+all: fast fn gf is km
 
-get-compile-time: fast-cpt fn-cpt gf-cpt is-cpt
-
-# km
+get-compile-time: fast-cpt fn-cpt gf-cpt is-cpt km-cpt
 
 # km lu tsp rt nb
 
@@ -53,10 +51,15 @@ is-cpt:
 	@echo "Generating results for IS Kernel"
 	@cd IS && $(MAKE) get-compile-time BINDIR=$(BINDIR)/is
 
-# Builds KM kernel.
+# KM kernel.
 km:	
 	@mkdir -p $(BINDIR)/km
 	@cd KM && $(MAKE) all BINDIR=$(BINDIR)/km
+
+km-cpt:
+	@echo "======================================="
+	@echo "Generating results for KM Kernel"
+	@cd KM && $(MAKE) get-compile-time BINDIR=$(BINDIR)/km
 
 # Builds LU kernel.
 lu:
