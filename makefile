@@ -16,14 +16,12 @@ all-x86:
 x86-cpt:
 	cd x86 && $(MAKE) get-compile-time
 
-
 ###################	MPPA-256 ###################
 
 # Builds all kernels for MPPA-256.
 all-mppa256: 
 	mkdir -p bin
 	cd mppa256 && $(MAKE) all BINDIR=$(BINDIR)
-
 
 ###################	Gem5 ###################
 

@@ -5,11 +5,11 @@
 .PHONY: fast fn gf is km
 
 # Builds all kernels.
-all: fast 
+all: fast fn
 
-get-compile-time: fast-cpt
+get-compile-time: fast-cpt fn-cpt
 
-# fn gf is km
+# gf is km
 
 # gf is km lu tsp rt nb
 
@@ -21,10 +21,13 @@ fast:
 fast-cpt:
 	@cd FAST && $(MAKE) get-compile-time BINDIR=$(BINDIR)/fast
 
-# Builds FN kernel.
+# FN kernel.
 fn:
 	@mkdir -p $(BINDIR)/fn
 	@cd FN && $(MAKE) all BINDIR=$(BINDIR)/fn
+
+fn-cpt:
+	@cd FN && $(MAKE) get-compile-time BINDIR=$(BINDIR)/fn
 
 # Builds GF kernel.
 gf:
