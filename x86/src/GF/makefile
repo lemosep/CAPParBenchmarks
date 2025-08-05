@@ -33,17 +33,31 @@ $(LINKED_BC): $(BC_OBJ)
 # Function to compile for different register allocation algorithms.
 define compile_for_regalloc
 $(BINDIR)/$(1).intel: $(LINKED_BC) | $(BINDIR)
-	@echo "Compiling $(EXEC) with $(1) allocator..."
-	/usr/bin/time -f "$(1): %e seconds" \
-		$(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) \
-		-o $(LOCAL_BINDIR)/$(EXEC)_$(1).o 2>> llc_times_$(EXEC).txt
+	$(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) \
+		-o $(LOCAL_BINDIR)/$(EXEC)_$(1).o
+
 	$(CC) $(LOCAL_BINDIR)/$(EXEC)_$(1).o $(LIBS) -o $(BINDIR)/$(1).intel $(LIBARGS)
 endef
+
 $(foreach alg, $(REG_ALLOC_ALGOS), $(eval $(call compile_for_regalloc,$(alg))))
 
 # Build all object files.
 all: $(LINKED_BC) $(OBJ_FILES)
 
+# Fetches compile times for all algorithms 10 times
+get-compile-time: clean all
+	@rm -rf llc_times_$(EXEC).txt
+	@for i in $$(seq 1 10); do \
+		echo "Run $$i" >> llc_times_$(EXEC).txt; \
+		for alg in $(REG_ALLOC_ALGOS); do \
+			echo -n "$$alg: " >> llc_times_$(EXEC).txt; \
+			perf stat $(LLC) -relocation-model=pic -regalloc=$$alg -filetype=obj $(LINKED_BC) \
+				-o $(LOCAL_BINDIR)/$(EXEC)_$$alg.o 2>&1 | \
+			grep 'seconds time elapsed' >> llc_times_$(EXEC).txt; \
+		done; \
+		echo "" >> llc_times_$(EXEC).txt; \
+	done
+
 # Cleans compilation files.
 clean:
-	@rm -rf $(LOCAL_BINDIR)
+	@rm -rf $(LOCAL_BINDIR) llc_times_$(EXEC).txt

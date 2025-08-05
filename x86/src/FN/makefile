@@ -61,4 +61,4 @@ get-compile-time: clean all
 
 # Cleans compilation files.
 clean:
-	rm -rf $(LOCAL_BINDIR)
+	rm -rf $(LOCAL_BINDIR) llc_times_$(EXEC).txt
