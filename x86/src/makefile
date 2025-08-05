@@ -2,14 +2,12 @@
 # Copyright(C) 2014 Pedro H. Penna <pedrohenriquepenna@gmail.com>
 #
 
-.PHONY: fast fn gf is km lu tsp rt
+.PHONY: fast fn gf is km lu tsp rt nb
 
 # Builds all kernels.
-all: fast fn gf is km lu tsp rt
+all: fast fn gf is km lu tsp rt nb
 
-get-compile-time: fast-cpt fn-cpt gf-cpt is-cpt km-cpt lu-cpt tsp-cpt rt-cpt
-
-#  nb
+get-compile-time: fast-cpt fn-cpt gf-cpt is-cpt km-cpt lu-cpt tsp-cpt rt-cpt nb-cpt
 
 # FAST kernel.
 fast:
@@ -93,7 +91,13 @@ rt-cpt:
 
 # Builds NB kernel.
 nb:
-	cd NB && $(MAKE) all
+	@mkdir -p $(BINDIR)/nb
+	cd NB && $(MAKE) all BINDIR=$(BINDIR)/nb
+
+nb-cpt:
+	@echo "======================================="
+	@echo "Generating results for NB Kernel"
+	@cd NB && $(MAKE) get-compile-time BINDIR=$(BINDIR)/nb
 
 # Cleans compilation files.
 clean:
