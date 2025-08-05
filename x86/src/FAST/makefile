@@ -53,7 +53,7 @@ get-compile-time: clean all
 			echo -n "$$alg: " >> llc_times_$(EXEC).txt; \
 			perf stat $(LLC) -relocation-model=pic -regalloc=$$alg -filetype=obj $(LINKED_BC) \
 				-o $(LOCAL_BINDIR)/$(EXEC)_$$alg.o 2>&1 | \
-			grep 'seconds time elapsed' >> llc_times_$(EXEC).txt \
+			grep 'seconds time elapsed' >> llc_times_$(EXEC).txt; \
 		done; \
 		echo "" >> llc_times_$(EXEC).txt; \
 	done
