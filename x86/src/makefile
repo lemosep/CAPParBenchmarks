@@ -41,7 +41,7 @@ gf:
 gf-cpt:
 	@echo "======================================="
 	@echo "Generating results for GF Kernel"
-	@cd FN && $(MAKE) get-compile-time BINDIR=$(BINDIR)/gf
+	@cd GF && $(MAKE) get-compile-time BINDIR=$(BINDIR)/gf
 
 # Builds IS kernel.
 is:
