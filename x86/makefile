@@ -17,7 +17,7 @@ export AR = ar
 export LLC = llc
 
 # Tool chain configuration.
-export CFLAGS = -Wall -Wextra -Wno-unused-but-set-variable -Wno-unused-parameter -Werror -O3 
+export CFLAGS = -Wall -Wextra -Wno-unused-variable -Wno-unused-parameter -O3 
 export CFLAGS += -I$(INCDIR)
 export CFLAGS += -fopenmp
 export ARFLAGS = -vq
@@ -49,6 +49,9 @@ get-compile-time:
 # Gets virtual register amount.
 vregs-count:
 	cd $(SRCDIR) && $(MAKE) vregs-count
+
+spill-stats:
+	cd $(SRCDIR) && $(MAKE) spill-stats
 
 # Cleans compilation files.
 clean:
