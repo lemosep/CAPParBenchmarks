@@ -72,8 +72,7 @@ stats-collect: $(LINKED_BC)
 	@for alg in $(REG_ALLOC_ALGOS); do \
 		echo "== $(EXEC), $$alg =="; \
 		$(LLC) -regalloc=$$alg -filetype=obj $(LINKED_BC) \
-			-o /dev/null -stats 2>&1 | \
-			grep -E "spill|Spill|reload|Reload|virtual registers"; \
+			-o /dev/null -stats 1>/dev/null 2> $(LOCAL_BINDIR)/$(EXEC)_stats_$$alg.txt || true; \
 		echo ""; \
 	done
 
