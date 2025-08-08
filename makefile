@@ -12,9 +12,13 @@ RESULTSDIR = $(CURRDIR)/results
 all-x86:
 	cd x86 && $(MAKE) all
 
-# Get compile-time metrics
-x86-cpt:
+# Get compile-time metrics.
+cpt-x86:
 	cd x86 && $(MAKE) get-compile-time
+
+# Get virtual-registers amount per kernel.
+vregs-x86:
+	cd x86 && $(MAKE) vregs-count
 
 ###################	MPPA-256 ###################
 

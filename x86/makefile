@@ -42,9 +42,13 @@ lib:
 	mkdir -p lib
 	cd $(LIBSRCDIR) && $(MAKE) all
 
-# Gets compile time:
+# Gets compile time.
 get-compile-time:
 	cd $(SRCDIR) && $(MAKE) get-compile-time
+
+# Gets virtual register amount.
+vregs-count:
+	cd $(SRCDIR) && $(MAKE) vregs-count
 
 # Cleans compilation files.
 clean:
