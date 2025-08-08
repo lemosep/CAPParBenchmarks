@@ -68,6 +68,15 @@ vregs-count: $(LINKED_BC) | $(LOCAL_BINDIR)
 	@echo -n "VREGS ($(EXEC)): "
 	@egrep -o '(%[0-9]+|vreg[0-9]+)' $(LOCAL_BINDIR)/$(EXEC)_preRA.mir | sort -u | wc -l
 
+stats-collect: $(LINKED_BC)
+	@for alg in $(REG_ALLOC_ALGOS); do \
+		echo "== $(EXEC), $$alg =="; \
+		$(LLC) -regalloc=$$alg -filetype=obj $(LINKED_BC) \
+			-o /dev/null -stats 2>&1 | \
+			grep -E "spill|Spill|reload|Reload|virtual registers"; \
+		echo ""; \
+	done
+
 # Cleans compilation files.
 clean:
 	@rm -rf $(LOCAL_BINDIR) llc_times_$(EXEC).txt

@@ -20,6 +20,9 @@ cpt-x86:
 vregs-x86:
 	cd x86 && $(MAKE) vregs-count
 
+stats-x86:
+	cd x86 && $(MAKE) stats-collect
+
 ###################	MPPA-256 ###################
 
 # Builds all kernels for MPPA-256.

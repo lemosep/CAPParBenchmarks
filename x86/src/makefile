@@ -29,6 +29,9 @@ vregs-count:
 		$(MAKE) -C $$DIR vregs-count $(BINDIR)/$$kernel; \
 	done
 
+stats-collect:
+	@cd FAST && $(MAKE) stats-collect $(BINDIR)/fast
+
 # Cleans compilation files.
 clean:
 	for kernel in $(KERNELS); do \

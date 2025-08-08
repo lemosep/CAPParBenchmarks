@@ -50,8 +50,8 @@ get-compile-time:
 vregs-count:
 	cd $(SRCDIR) && $(MAKE) vregs-count
 
-spill-stats:
-	cd $(SRCDIR) && $(MAKE) spill-stats
+stats-collect:
+	cd $(SRCDIR) && $(MAKE) stats-collect
 
 # Cleans compilation files.
 clean:
