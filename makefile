@@ -16,10 +16,6 @@ all-x86:
 cpt-x86:
 	cd x86 && $(MAKE) get-compile-time
 
-# Get virtual-registers amount per kernel.
-vregs-x86:
-	cd x86 && $(MAKE) vregs-count
-
 stats-x86:
 	cd x86 && $(MAKE) stats-collect
 

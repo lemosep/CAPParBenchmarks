@@ -46,10 +46,6 @@ lib:
 get-compile-time:
 	cd $(SRCDIR) && $(MAKE) get-compile-time
 
-# Gets virtual register amount.
-vregs-count:
-	cd $(SRCDIR) && $(MAKE) vregs-count
-
 stats-collect:
 	cd $(SRCDIR) && $(MAKE) stats-collect
 

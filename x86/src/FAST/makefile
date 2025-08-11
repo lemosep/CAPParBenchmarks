@@ -58,16 +58,6 @@ get-compile-time: clean all
 		echo "" >> llc_times_$(EXEC).txt; \
 	done
 
-# Counts kernel's virtual registers
-vregs-count: $(LINKED_BC) | $(LOCAL_BINDIR)
-	$(LLC) -filetype=null -o /dev/null \
-	    -stop-after=finalize-isel \
-	    -verify-machineinstrs \
-	    -print-after=finalize-isel \
-	    $(LINKED_BC) 2> $(LOCAL_BINDIR)/$(EXEC)_preRA.mir || true
-	@echo -n "VREGS ($(EXEC)): "
-	@egrep -o '(%[0-9]+|vreg[0-9]+)' $(LOCAL_BINDIR)/$(EXEC)_preRA.mir | sort -u | wc -l
-
 stats-collect: $(LINKED_BC)
 	@for alg in $(REG_ALLOC_ALGOS); do \
 		echo "== $(EXEC), $$alg =="; \

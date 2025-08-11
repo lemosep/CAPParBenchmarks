@@ -22,15 +22,11 @@ get-compile-time:
 		$(MAKE) -C $$DIR get-compile-time BINDIR=$(BINDIR)/$$kernel; \
 	done
 
-# Get amount of virtual registers
-vregs-count: 
+stats-collect:
 	for kernel in $(KERNELS); do \
 		DIR=$$(printf '%s' $$kernel | tr '[:lower:]' '[:upper:]'); \
-		$(MAKE) -C $$DIR vregs-count $(BINDIR)/$$kernel; \
+		$(MAKE) -C $$DIR stats-collect BINDIR=$(BINDIR)/$$kernel; \
 	done
-
-stats-collect:
-	@cd FAST && $(MAKE) stats-collect $(BINDIR)/fast
 
 # Cleans compilation files.
 clean:
