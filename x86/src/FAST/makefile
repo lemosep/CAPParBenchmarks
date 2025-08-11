@@ -33,7 +33,7 @@ $(LINKED_BC): $(BC_OBJ)
 # Function to compile for different register allocation algorithms.
 define compile_for_regalloc
 $(BINDIR)/$(1).intel: $(LINKED_BC) | $(BINDIR)
-	$(LLC) -relocation-model=pic -regalloc=$(1) -filetype=obj $(LINKED_BC) \
+	$(LLC) --relocation-model=pic --regalloc=$(1) --filetype=obj $(LINKED_BC) \
 		-o $(LOCAL_BINDIR)/$(EXEC)_$(1).o
 
 	$(CC) $(LOCAL_BINDIR)/$(EXEC)_$(1).o $(LIBS) -o $(BINDIR)/$(1).intel $(LIBARGS)
@@ -51,7 +51,7 @@ get-compile-time: clean all
 		echo "Run $$i" >> llc_times_$(EXEC).txt; \
 		for alg in $(REG_ALLOC_ALGOS); do \
 			echo -n "$$alg: " >> llc_times_$(EXEC).txt; \
-			perf stat $(LLC) -relocation-model=pic -regalloc=$$alg -filetype=obj $(LINKED_BC) \
+			perf stat $(LLC) -relocation-model=pic --regalloc=$$alg -filetype=obj $(LINKED_BC) \
 				-o $(LOCAL_BINDIR)/$(EXEC)_$$alg.o 2>&1 | \
 			grep 'seconds time elapsed' >> llc_times_$(EXEC).txt; \
 		done; \
@@ -71,9 +71,10 @@ vregs-count: $(LINKED_BC) | $(LOCAL_BINDIR)
 stats-collect: $(LINKED_BC)
 	@for alg in $(REG_ALLOC_ALGOS); do \
 		echo "== $(EXEC), $$alg =="; \
-		$(LLC) -regalloc=$$alg -filetype=obj $(LINKED_BC) \
-			-o /dev/null -stats 1>/dev/null 2> $(LOCAL_BINDIR)/$(EXEC)_stats_$$alg.txt || true; \
+		$(LLC) --regalloc=$$alg -filetype=obj $(LINKED_BC) \
+			-o /dev/null --stats 1>/dev/null 2> $(LOCAL_BINDIR)/$(EXEC)_stats_$$alg.txt || true; \
 		echo ""; \
+		cat $(EXEC)_stats_$$alg.txt; \
 	done
 
 # Cleans compilation files.
