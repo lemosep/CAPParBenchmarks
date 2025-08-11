@@ -17,7 +17,7 @@ export AR = ar
 export LLC = llc
 
 # Tool chain configuration.
-export CFLAGS = -Wall -Wextra -Wno-unused-but-set-variable -Wno-unused-parameter -Werror -O3 
+export CFLAGS = -Wall -Wextra -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unknown-pragmas -O3 
 export CFLAGS += -I$(INCDIR)
 export CFLAGS += -fopenmp
 export ARFLAGS = -vq
