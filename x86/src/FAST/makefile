@@ -74,7 +74,7 @@ stats-collect: $(LINKED_BC)
 		$(LLC) --regalloc=$$alg -filetype=obj $(LINKED_BC) \
 			-o /dev/null --stats 1>/dev/null 2> $(LOCAL_BINDIR)/$(EXEC)_stats_$$alg.txt || true; \
 		echo ""; \
-		cat $(EXEC)_stats_$$alg.txt; \
+		cat $(LOCAL_BINDIR)/$(EXEC)_stats_$$alg.txt; \
 	done
 
 # Cleans compilation files.
