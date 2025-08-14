@@ -12,7 +12,7 @@ mkdir -p $RESULTSDIR
 
 # tiny small standard large huge
 
-for kernel in sp; do
+for kernel in sten; do
     echo "running $kernel"
     mkdir -p $RESULTSDIR/$kernel
 

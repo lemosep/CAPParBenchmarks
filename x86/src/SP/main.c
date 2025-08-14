@@ -1,18 +1,18 @@
 /*
- * main.c - Driver do SpMV (stencil 2D periódico) no padrão CAPBench
+ * main.c - SpMV driver (2D periodic stencil) in CAPBench standard
  *
  * CLI:
  *   --nthreads <int>
  *   --class {tiny,small,standard,large,huge}
- *   [--lsize <int>]          # sobrescreve a classe (size = 2^lsize)
- *   [--radius <int>]         # sobrescreve a classe
- *   [--scramble]             # ativa bit-reversal dos índices
+ *   [--lsize <int>]          # override class (size = 2^lsize)
+ *   [--radius <int>]         # override class
+ *   [--scramble]             # enable bit-reversal of indices
  *   [--verbose]
  *
- * Saída:
- *   - "timing statistics" com total time (µs)
- *   - "Solution validates" (ou erro)
- *   - taxa "Rate (MFlops/s)" e tempo médio por iteração
+ * Output:
+ *   - "timing statistics" with total time (µs)
+ *   - "Solution validates" (or error)
+ *   - "Rate (MFlops/s)" and average time per iteration
  */
 
 #include <global.h>
@@ -27,11 +27,11 @@
 #include <math.h>
 #include "sparse.h"
 
-/* Verbose e nthreads no estilo CAPBench */
+/* Verbose and nthreads in CAPBench style */
 int verbose = 0;
 int nthreads = 1;
 
-/* Problema: lsize (log2 do lado), radius e iterações por classe */
+/* Problem: lsize (log2 of side), radius and iterations per class */
 struct problem
 {
     int lsize;
@@ -39,16 +39,16 @@ struct problem
     int iterations;
 };
 
-/* Classes calibráveis (valores seguros — ajuste se quiser mais carga) */
-static struct problem tiny = {8, 1, 80};      /* size=256,  ordem=65.536 */
-static struct problem small = {9, 1, 80};     /* size=512,  ordem=262.144 */
-static struct problem standard = {10, 1, 50}; /* size=1024, ordem=1.048.576 */
-static struct problem large = {11, 1, 30};    /* size=2048, ordem=4.194.304 */
-static struct problem huge = {12, 1, 24};     /* size=4096, ordem=16.777.216 */
+/* Calibratable classes (safe values — adjust if you want more load) */
+static struct problem tiny = {8, 1, 80};       /* size=256,  ordem=65.536 */
+static struct problem small = {9, 1, 80};      /* size=512,  ordem=262.144 */
+static struct problem standard = {12, 2, 100}; /* size=4096, ordem=16.777.216, radius=2 */
+static struct problem large = {13, 2, 80};     /* size=8192, ordem=67.108.864 */
+static struct problem huge = {14, 3, 60};      /* size=16384, ordem=268.435.456 */
 
 static struct problem *p = &tiny;
 
-/* overrides opcionais */
+/* optional overrides */
 static int lsize_override = -1;
 static int radius_override = -1;
 static int scramble_flag = 0;
@@ -135,12 +135,12 @@ int main(int argc, char **argv)
 {
     readargs(argc, argv);
 
-    /* Define parâmetros efetivos */
+    /* Define effective parameters */
     int lsize = (lsize_override >= 0) ? lsize_override : p->lsize;
     int radius = (radius_override >= 0) ? radius_override : p->radius;
     int iterations = p->iterations;
 
-    /* Validações básicas (mesmas do PRK) */
+    /* Basic validations (same as PRK) */
     if (lsize < 0)
     {
         printf("ERROR: Log of grid size must be >= 0: %d\n", lsize);
@@ -175,20 +175,20 @@ int main(int argc, char **argv)
         printf("  scramble     : %s\n", scramble_flag ? "on" : "off");
     }
 
-    /* Executa kernel */
+    /* Execute kernel */
     double vector_sum = 0.0;
     int64_t nent_kernel = 0;
     double elapsed_sec = sparse_kernel(lsize, radius, iterations, scramble_flag,
                                        &vector_sum, &nent_kernel);
 
-    /* Checagem de consistência (opcional) */
+    /* Consistency check (optional) */
     if (nent_kernel != nent)
     {
         printf("WARNING: nent mismatch: %" PRId64 " vs %" PRId64 "\n",
                nent_kernel, nent);
     }
 
-    /* Verificação do PRK:
+    /* PRK verification:
        reference_sum = 0.5 * nent * (iterations+1)*(iterations+2) */
     const double ref = 0.5 * (double)nent * (double)(iterations + 1) * (double)(iterations + 2);
     const double epsilon = 1.0e-8;
@@ -206,9 +206,9 @@ int main(int argc, char **argv)
 #endif
     }
 
-    /* Saídas no padrão CAPBench + taxa (PRK) */
+    /* Outputs in CAPBench standard + rate (PRK) */
     double avg_time = elapsed_sec / (double)iterations;
-    /* custo por iteração: 2*nent FLOPs (1 mul + 1 add por nnz) */
+    /* cost per iteration: 2*nent FLOPs (1 mul + 1 add per nnz) */
     double mflops = 1.0e-06 * (2.0 * (double)nent) / avg_time;
 
     printf("timing statistics:\n");
