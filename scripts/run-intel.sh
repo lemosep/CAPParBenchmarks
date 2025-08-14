@@ -9,11 +9,10 @@ export BINDIR=$ROOTDIR/x86/bin
 export ITERATIONS=2
 
 mkdir -p $RESULTSDIR
-# gf is km lu tsp
-# fn gf is km lu
+
 # tiny small standard large huge
 
-for kernel in fast fn; do
+for kernel in sp; do
     echo "running $kernel"
     mkdir -p $RESULTSDIR/$kernel
 
@@ -21,16 +20,17 @@ for kernel in fast fn; do
     i=0
     while [ $i -lt $ITERATIONS ]; do
         echo "running weak scaling test: iteration $i"
-        for nprocs in 1 4 8 16; do
+        for nprocs in 1 4 6 8 12 16; do
+            mkdir -p $RESULTSDIR/$kernel/${nprocs}-threads
             for class in standard; do
-                for regalloc_algo in fast basic greedy pbqp; do
-                    out_file="$RESULTSDIR/$kernel/${class}-${regalloc_algo}-${nprocs}.txt"
+                for regalloc_algo in fast basic greedy pbqp; do    
+                    out_file="$RESULTSDIR/$kernel/${nprocs}-threads/${regalloc_algo}.txt"
                     bin="$BINDIR/$kernel/$regalloc_algo.intel"
 
                     echo ">> Iteration $i" >> "$out_file"
-                    echo "[COMMAND] $bin --verbose --class $class --nthreads $nprocs" >> "$out_file"
+                    echo "[COMMAND] $bin --class $class --nthreads $nprocs" >> "$out_file"
 
-                    $bin --verbose --class "$class" --nthreads "$nprocs" >> "$out_file" 2>&1
+                    $bin --class "$class" --nthreads "$nprocs" >> "$out_file" 2>&1
                     echo -e "\n---\n" >> "$out_file"
                 done
             done

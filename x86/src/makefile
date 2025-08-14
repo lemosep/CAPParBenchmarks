@@ -1,10 +1,10 @@
 #
 # Copyright(C) 2014 Pedro H. Penna <pedrohenriquepenna@gmail.com>
 #
-#					CAPbench			|	  Polybench									
-KERNELS := fast fn gf is km lu tsp rt nb gemm 2mm 3mm
+#					CAPbench												
+KERNELS := fast fn gf is km lu tsp rt nb bc dgemm sp
 
-.PHONY: fast fn gf is km lu tsp rt nb gemm 2mm 3mm
+.PHONY: fast fn gf is km lu tsp rt nb bc dgemm sp 
 
 # Builds all kernels.
 all: 

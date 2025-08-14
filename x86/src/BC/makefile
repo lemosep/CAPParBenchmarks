@@ -9,7 +9,7 @@ BC_DIR = $(LOCAL_BINDIR)/bytecode
 # Source files.
 SRC = $(wildcard *.c)
 
-EXEC = 2mm
+EXEC = bc
 
 # Bytecode object files.
 BC_OBJ = $(patsubst %.c, $(BC_DIR)/%.bc, $(SRC))
