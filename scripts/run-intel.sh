@@ -12,7 +12,7 @@ mkdir -p $RESULTSDIR
 
 # tiny small standard large huge
 
-for kernel in sten; do
+for kernel in fast fn gf is km lu tsp rt nb bc dgemm sp sten; do
     echo "running $kernel"
     mkdir -p $RESULTSDIR/$kernel
 
