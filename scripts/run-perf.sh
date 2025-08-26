@@ -5,7 +5,7 @@
 # Directories
 export ROOTDIR=$PWD
 export RESULTSDIR=$ROOTDIR/results_perf
-export BINDIR=$ROOTDIR/X86/bin
+export BINDIR=$ROOTDIR/x86/bin
 
 mkdir -p $RESULTSDIR
 
@@ -27,8 +27,9 @@ for kernel in $kernels; do
             out_file="$RESULTSDIR/$kernel/${nprocs}-threads/${regalloc_algo}_perf.txt"
 
             echo "[PERF COMMAND] $bin --class $class --nthreads $nprocs"
-            perf stat -o "$out_file" \
-                $bin --class "$class" --nthreads "$nprocs"
+            perf stat -o "$out_file" -e \
+                cycles,instructions,cache-references,cache-misses,LLC-loads,LLC-load-misses \
+                -- $bin --class "$class" --nthreads "$nprocs"
         done
     done
 done
