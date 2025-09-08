@@ -12,7 +12,7 @@ mkdir -p $RESULTSDIR
 # Kernels to test
 kernels="fast fn gf is km lu tsp rt nb bc dgemm sp sten"
 nprocs_list="1 4 6 8 12 16"
-regalloc_algos="fast basic greedy pbqp"
+regalloc_algos="basic greedy pbqp"
 class="standard"
 
 for kernel in $kernels; do
