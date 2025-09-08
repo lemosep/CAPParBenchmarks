@@ -17,7 +17,7 @@ export AR = ar
 export LLC = llc
 
 # Tool chain configuration.
-export CFLAGS = -Wall -Wextra -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unknown-pragmas -O3 
+export CFLAGS = -Wall -Wextra -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unknown-pragmas -O0 
 export CFLAGS += -I$(INCDIR)
 export CFLAGS += -fopenmp
 export ARFLAGS = -vq
@@ -29,7 +29,7 @@ export LIBS = $(LIBDIR)/$(LIB).a
 export LIBARGS = -lm -fopenmp
 
 # LLVM configuration.
-export REG_ALLOC_ALGOS = fast basic greedy pbqp
+export REG_ALLOC_ALGOS = basic greedy pbqp
 
 .PHONY: lib
 

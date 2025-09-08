@@ -12,7 +12,7 @@ mkdir -p $RESULTSDIR
 
 # tiny small standard large huge
 
-for kernel in fast fn gf is km lu tsp rt nb bc dgemm sp sten; do
+for kernel in fast fn gf is km lu tsp rt nb bc dgemm sp sten gemm; do
     echo "running $kernel"
     mkdir -p $RESULTSDIR/$kernel
 
@@ -22,8 +22,8 @@ for kernel in fast fn gf is km lu tsp rt nb bc dgemm sp sten; do
         echo "running weak scaling test: iteration $i"
         for nprocs in 1 4 6 8 12 16; do
             mkdir -p $RESULTSDIR/$kernel/${nprocs}-threads
-            for class in standard; do
-                for regalloc_algo in fast basic greedy pbqp; do    
+            for class in large; do
+                for regalloc_algo in basic greedy pbqp; do    
                     out_file="$RESULTSDIR/$kernel/${nprocs}-threads/${regalloc_algo}.txt"
                     bin="$BINDIR/$kernel/$regalloc_algo.intel"
 
@@ -37,14 +37,4 @@ for kernel in fast fn gf is km lu tsp rt nb bc dgemm sp sten; do
         done
         i=$((i + 1))
     done
-    
-    # Strong scaling
-    # i=0
-    # while [ $i -lt $ITERATIONS ]; do
-    #     echo "running strong scaling test: iteration $i"
-    #     for nprocs in 3 5 6 7 9 10 11 12 13 14 15; do
-    #         $BINDIR/$kernel.intel --verbose --class standard --nthreads $nprocs &>> $RESULTSDIR/$kernel-standard-$nprocs.intel
-    #     done
-    #     i=$((i + 1))
-    # done
 done

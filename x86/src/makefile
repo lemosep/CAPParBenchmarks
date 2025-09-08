@@ -2,9 +2,9 @@
 # Copyright(C) 2014 Pedro H. Penna <pedrohenriquepenna@gmail.com>
 #
 #					CAPbench			| 	  ParRes									
-KERNELS := fast fn gf is km lu tsp rt nb bc dgemm sp sten
+KERNELS := fast fn gf is km lu tsp rt nb bc dgemm sp sten gemm
 
-.PHONY: fast fn gf is km lu tsp rt nb bc dgemm sp sten
+.PHONY: fast fn gf is km lu tsp rt nb bc dgemm sp sten gemm
 
 # Builds all kernels.
 all: 
