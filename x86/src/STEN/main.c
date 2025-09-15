@@ -149,7 +149,7 @@ int main(int argc, char **argv)
     if ((int)type < 0)
         type = C->type;
 
-    /* fundamental validations (as in PRK) */
+    /* validações fundamentais (como no PRK) */
     if (n < 1)
     {
         printf("ERROR: grid dimension must be positive: %d\n", n);

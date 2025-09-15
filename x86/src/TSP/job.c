@@ -1,13 +1,11 @@
-#include "job.h"
-#include <omp.h>
-
 #include "tsp.h"
+#include <omp.h>
 
 #ifdef NO_CACHE_COHERENCE // See close_queue() for details
 static int waiting_threads = 0;
 #endif
 
-inline void reset_queue(job_queue_t *q)
+void reset_queue(job_queue_t *q)
 {
 	q->begin = 0;
 	q->end = 0;

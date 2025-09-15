@@ -21,7 +21,7 @@ export CFLAGS = -Wall -Wextra -Wno-unused-but-set-variable -Wno-unused-parameter
 export CFLAGS += -I$(INCDIR)
 export CFLAGS += -fopenmp
 export ARFLAGS = -vq
-export LLVMFLAGS = -emit-llvm -c 
+export LLVMFLAGS = -emit-llvm -c
 
 # Libraries.
 export LIB = libcapb

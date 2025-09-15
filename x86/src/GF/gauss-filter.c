@@ -53,5 +53,13 @@ void gauss_filter(unsigned char *img, int imgsize, double *mask, int masksize)
 		}
 	}
 
+	printf("OUTPUT X86:\n");
+	for (imgI = 0; imgI < imgsize; imgI++)
+	{
+		for (imgJ = 0; imgJ < imgsize; imgJ++)
+			fprintf(stderr, "%d ", NEWIMG(imgI, imgJ));
+		fprintf(stderr, "\n");
+	}
+
 	free(newimg);
 }

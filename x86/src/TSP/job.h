@@ -2,6 +2,7 @@
 #define __JOB_H
 
 #include "defs.h"
+#include "tsp.h"
 
 typedef int path_t[MAX_TOWNS];
 
@@ -41,5 +42,6 @@ void init_queue(job_queue_t *q, unsigned long max_size, int (*repopulate_queue)(
 void add_job(job_queue_t *q, job_t j);
 int get_job(job_queue_t *q, job_t *j);
 void free_queue(job_queue_t *q);
+void reset_queue(job_queue_t *q);
 
 #endif

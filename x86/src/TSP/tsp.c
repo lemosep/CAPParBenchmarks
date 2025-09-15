@@ -76,7 +76,7 @@ static inline void intern_update_minimum_distance(tsp_t_pointer tsp, int new_dis
 #endif
 }
 
-inline int init_max_hops(tsp_t_pointer tsp)
+int init_max_hops(tsp_t_pointer tsp)
 {
 	int total = 1;
 	tsp->max_hops = 0;
@@ -126,13 +126,12 @@ void free_tsp(tsp_t_pointer tsp)
 	free(tsp);
 }
 
-inline int present(int city, int hops, path_t *path)
+int present(int city, int hops, path_t *path)
 {
 	int i;
-	for (i = 0; i < hops; i++)
-		if ((*path)[i] == city)
-			return 1;
-	return 0;
+	for (i = 0; i < hops && path[i] != city; i++)
+		;
+	return i < hops;
 }
 
 void tsp(tsp_t_pointer tsp_par, int hops, int len, path_t *path, unsigned long *cuts, unsigned long long *path_cuts, int thread_id)
@@ -299,7 +298,7 @@ inline int tsp_update_minimum_distance(tsp_t_pointer tsp, int new_distance)
 	return min_updated;
 }
 
-inline partition_interval_t get_next_partition_block_size(int nb_partitions, int *next_partition, int block_size, int processed_partitions)
+partition_interval_t get_next_partition_block_size(int nb_partitions, int *next_partition, int block_size, int processed_partitions)
 {
 	partition_interval_t ret;
 	ret.start = ret.end = -1;
@@ -313,13 +312,13 @@ inline partition_interval_t get_next_partition_block_size(int nb_partitions, int
 	return ret;
 }
 
-inline partition_interval_t get_next_partition_block(int nb_partitions, int *next_partition, int processed_partitions)
+partition_interval_t get_next_partition_block(int nb_partitions, int *next_partition, int processed_partitions)
 {
 	partition_interval_t ret = get_next_partition_block_size(nb_partitions, next_partition, 5, processed_partitions);
 	return ret;
 }
 
-inline partition_interval_t get_next_partition_fss(int nb_partitions, int nb_clusters, int *next_partition, int alfa, int processed_partitions)
+partition_interval_t get_next_partition_fss(int nb_partitions, int nb_clusters, int *next_partition, int alfa, int processed_partitions)
 {
 	int block_size;
 	block_size = (nb_partitions / (1.0 / (INITIAL_JOB_DISTRIBUTION_PERCENTAGE / 100.0)) / nb_clusters);
@@ -334,12 +333,12 @@ inline partition_interval_t get_next_partition_fss(int nb_partitions, int nb_clu
 	return ret;
 }
 
-inline partition_interval_t get_next_partition_gss(int nb_partitions, int nb_clusters, int *next_partition, int processed_partitions)
+partition_interval_t get_next_partition_gss(int nb_partitions, int nb_clusters, int *next_partition, int processed_partitions)
 {
 	return get_next_partition_fss(nb_partitions, nb_clusters, next_partition, 1, processed_partitions);
 }
 
-inline partition_interval_t get_next_partition_default_impl(int nb_partitions, int nb_clusters, int *next_partition, int processed_partitions)
+partition_interval_t get_next_partition_default_impl(int nb_partitions, int nb_clusters, int *next_partition, int processed_partitions)
 {
 	return get_next_partition_gss(nb_partitions, nb_clusters, next_partition, processed_partitions);
 }

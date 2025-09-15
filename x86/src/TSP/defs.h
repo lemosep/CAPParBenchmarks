@@ -18,6 +18,17 @@
 extern const unsigned long long FACTORIAL_TABLE[];
 
 
+typedef struct {
+    int start;
+    int end;
+} partition_interval_t;
+
+partition_interval_t get_next_partition_block_size(int nb_partitions, int *next_partition, int block_size, int processed_partitions);
+partition_interval_t get_next_partition_block(int nb_partitions, int *next_partition, int processed_partitions);
+partition_interval_t get_next_partition_fss(int nb_partitions, int nb_clusters, int *next_partition, int alfa, int processed_partitions);
+partition_interval_t get_next_partition_gss(int nb_partitions, int nb_clusters, int *next_partition, int processed_partitions);
+partition_interval_t get_next_partition_default_impl(int nb_partitions, int nb_clusters, int *next_partition, int processed_partitions);
+
 unsigned int get_number_of_partitions (int clusters);
 
 /*

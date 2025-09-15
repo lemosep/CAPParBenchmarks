@@ -1,6 +1,7 @@
 #
-# Copyright(C) 2014 Pedro H. Penna <pedrohenriquepenna@gmail.com>
+# Copyright(C) 2025 Eduardo Lemos Paschoalini
 #
+
 #					CAPbench			| 	  ParRes									
 KERNELS := fast fn gf is km lu tsp rt nb bc dgemm sp sten gemm
 

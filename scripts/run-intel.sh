@@ -6,7 +6,7 @@
 export ROOTDIR=$PWD
 export RESULTSDIR=$ROOTDIR/results
 export BINDIR=$ROOTDIR/x86/bin
-export ITERATIONS=2
+export ITERATIONS=10
 
 mkdir -p $RESULTSDIR
 
