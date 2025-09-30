@@ -1,5 +1,7 @@
 #
-# Copyright(C) 2014 Pedro H. Penna <pedrohenriquepenna@gmail.com>
+# Copyright(C) 2025
+# Pedro H. Penna <pedrohenriquepenna@gmail.com>
+# Eduardo Lemos Paschoalini
 #
 
 # Directories.
@@ -18,6 +20,20 @@ cpt-x86:
 
 stats-x86:
 	cd x86 && $(MAKE) stats-collect
+
+
+###################	ARM ###################
+
+# Builds all kernels for ARM.
+all-arm:
+	cd ARM && $(MAKE) all
+
+# Get compile-time metrics.
+cpt-arm:
+	cd ARM && $(MAKE) get-compile-time
+
+stats-arm:
+	cd arm && $(MAKE) stats-collect
 
 ###################	MPPA-256 ###################
 
@@ -38,3 +54,4 @@ all-gem5:
 clean:
 	rm -rf $(RESULTSDIR)
 	cd x86 && $(MAKE) clean
+	cd ARM && $(MAKE) clean
