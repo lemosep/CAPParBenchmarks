@@ -199,8 +199,8 @@ int main(int argc, char **argv)
 			printf("%.5lf | %.5lf | %.5lf\n", bodies[i].x, bodies[i].y, bodies[i].z);	
 	}
 	
-	printf("timing statistics:\n");
-	printf("  total time:    %f\n", timer_diff(start, end)*MICROSEC);
+	double elapsed_with = timer_diff(start, end);
+	printf("  Runtime:       %f\n", elapsed_with * MICROSEC);
 
 #ifdef _XEON_PHI_
 	printf("  average power: %f\n", power*0.000001);

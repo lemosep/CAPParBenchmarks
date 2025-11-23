@@ -5,6 +5,7 @@
 #include <string.h>
 #include <time.h>
 #include <omp.h>
+#include "timer.h"
 
 #ifndef ALIGN_BYTES
 #define ALIGN_BYTES 64
@@ -168,13 +169,8 @@ int main(int argc, char **argv) {
     #pragma omp parallel for reduction(+:checksum) schedule(static)
     for (int i = 0; i < N*N; ++i) checksum += C[i];
 
-    printf("gemm-blocked 4x4 OpenMP\n");
-    printf("class: %s\n", cls);
-    printf("threads: %d\n", nthreads);
-    printf("N: %d\n", N);
-    printf("transpose_time(s): %.6f\n", tT1 - tT0);
-    printf("time(s): %.6f\n", t1 - t0);
-    printf("checksum: %.10e\n", checksum);
+    double elapsed_with = t1 - t0;
+    printf("Runtime (s): %.9f\n", elapsed_with);
 
     free(A); free(B); free(BT); free(C);
     return 0;

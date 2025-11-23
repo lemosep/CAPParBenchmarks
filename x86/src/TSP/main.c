@@ -219,9 +219,6 @@ void run_tsp(int nb_threads, int nb_towns, int seed, int nb_clusters)
 #endif
 
 	int nb_partitions = get_number_of_partitions(nb_clusters);
-	if (verbose)
-		printf("Number of clusters..: %3d\nNumber of partitions: %3d\nNumber of threads...: %3d\nNumber of Towns.....: %3d\nSeed................: %3d\n",
-			   nb_clusters, nb_partitions, nb_threads, nb_towns, seed);
 
 	min_distance = INT_MAX;
 	next_partition = 0;
@@ -249,14 +246,8 @@ void run_tsp(int nb_threads, int nb_towns, int seed, int nb_clusters)
 	power = power_end();
 #endif
 
-	printf("shortest path size = %5d towns\n", min_distance);
-
-	printf("timing statistics:\n");
-	printf("  total time:    %f\n", timer_diff(start, end) * MICROSEC);
-
-#ifdef _XEON_PHI_
-	printf("  average power: %f\n", power * 0.000001);
-#endif
+	double elapsed_with = timer_diff(start, end);
+	printf("  Runtime:       %f\n", elapsed_with * MICROSEC);
 }
 
 partition_interval_t get_next_partition(tsp_t_pointer tsp)

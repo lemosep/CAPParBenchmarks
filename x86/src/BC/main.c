@@ -211,28 +211,12 @@ int main(int argc, char **argv)
     /* Outputs in CAPBench standard */
     if (mode == MODE_WITH || mode == MODE_BOTH)
     {
-        printf("timing statistics (with branches):\n");
-        printf("  total time:       %f\n", elapsed_with * MICROSEC);
-        printf("  checksum:         %d (ref %d)\n", total_with, total_ref);
-    }
-    if (mode == MODE_WITHOUT || mode == MODE_BOTH)
-    {
-        printf("timing statistics (without branches):\n");
-        printf("  total time:       %f\n", elapsed_without * MICROSEC);
-        printf("  checksum:         %d (ref %d)\n", total_without, total_ref);
+        printf("  Runtime:       %f\n", elapsed_with * MICROSEC);
     }
 
     /* Validation message (useful in standardized scripts) */
     int ok_with = (mode != MODE_WITH) || (total_with == total_ref);
     int ok_without = (mode != MODE_WITHOUT) || (total_without == total_ref);
-    if (ok_with && ok_without)
-    {
-        printf("Solution validates\n");
-    }
-    else
-    {
-        printf("ERROR: validation failed\n");
-    }
 
     /* Extra information for INS_HEAVY (not supported) */
     if (btype == BR_INS_HEAVY)

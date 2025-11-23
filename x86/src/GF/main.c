@@ -222,8 +222,8 @@ int main(int argc, char **argv)
 	power = power_end();
 #endif
 
-	printf("timing statistics:\n");
-	printf("  total time:    %f\n", timer_diff(start, end)*MICROSEC);
+	double elapsed_with = timer_diff(start, end);
+	printf("  Runtime:       %f\n", elapsed_with * MICROSEC);
 
 #ifdef _XEON_PHI_
 	printf("  average power: %f\n", power*0.000001);

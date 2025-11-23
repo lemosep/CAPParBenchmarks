@@ -211,10 +211,8 @@ int main(int argc, char **argv)
     /* cost per iteration: 2*nent FLOPs (1 mul + 1 add per nnz) */
     double mflops = 1.0e-06 * (2.0 * (double)nent) / avg_time;
 
-    printf("timing statistics:\n");
-    printf("  total time:       %f\n", elapsed_sec * MICROSEC);
-
-    printf("Rate (MFlops/s): %lf  Avg time (s): %lf\n", mflops, avg_time);
+    double elapsed_with = elapsed_sec;
+    printf("  Runtime:       %f\n", elapsed_with * MICROSEC);
 
     return 0;
 }

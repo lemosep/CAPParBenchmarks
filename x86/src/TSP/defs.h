@@ -119,11 +119,8 @@ struct cond_var_struct {
  * DEBUGGING AND TRACING
  */
 
-#ifdef DEBUG
-#define LOG(...) printf(__VA_ARGS__); fflush(stdout)
-#else
+#undef LOG
 #define LOG(...) 
-#endif //DEBUG
 
 
 enum {

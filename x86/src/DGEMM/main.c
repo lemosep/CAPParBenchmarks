@@ -152,10 +152,8 @@ int main(int argc, char **argv)
     /* Stats */
     double avg_time = elapsed_sec / (double)p->iterations;
     double nflops = 2.0 * n * n * n; /* por multiplicação C += A*B */
-    printf("timing statistics:\n");
-    printf("  total time:       %f\n", elapsed_sec * MICROSEC);
-    printf("Rate (MFlops/s): %lf  Avg time (s): %lf\n",
-           1.0e-06 * nflops / avg_time, avg_time);
+    double elapsed_with = elapsed_sec;
+    printf("  Runtime:       %f\n", elapsed_with * MICROSEC);
 
     return 0;
 }

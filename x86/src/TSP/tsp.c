@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <math.h>
 #include <omp.h>
 
@@ -129,7 +130,7 @@ void free_tsp(tsp_t_pointer tsp)
 int present(int city, int hops, path_t *path)
 {
 	int i;
-	for (i = 0; i < hops && path[i] != city; i++)
+	for (i = 0; i < hops && (*path)[i] != city; i++)
 		;
 	return i < hops;
 }
@@ -289,7 +290,8 @@ inline int tsp_update_minimum_distance(tsp_t_pointer tsp, int new_distance)
 	int min_updated = 0;
 #pragma omp critical(min_distance_update)
 	{
-		if (new_distance < tsp_get_shortest_path(tsp))
+		int cur = tsp_get_shortest_path(tsp);
+		if (new_distance < cur)
 		{
 			intern_update_minimum_distance(tsp, new_distance);
 			min_updated = 1;

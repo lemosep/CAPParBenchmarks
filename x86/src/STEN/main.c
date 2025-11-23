@@ -192,23 +192,14 @@ int main(int argc, char **argv)
     }
     else
     {
-        printf("Solution validates\n");
 #if VERBOSE
         printf("Reference L1 norm = %lf, L1 norm = %lf\n", ref, l1);
 #endif
     }
 
     /* estatísticas no padrão CAPBench */
-    printf("timing statistics:\n");
-    printf("  total time:       %f\n", sec * MICROSEC);
+    double elapsed_with = sec;
+    printf("  Runtime:       %f\n", elapsed_with * MICROSEC);
 
-    /* FLOPs por iteração: (2*stencil_size+1) * pontos_ativos */
-    int stencil_size = (type == STENCIL_STAR) ? (4 * radius + 1) : ((2 * radius + 1) * (2 * radius + 1));
-    double active = (double)(n - 2 * radius) * (double)(n - 2 * radius);
-    double flops_per_iter = (double)(2 * stencil_size + 1) * active;
-    double avg = sec / (double)it;
-    double mflops = 1.0e-06 * (flops_per_iter / avg);
-
-    printf("Rate (MFlops/s): %lf  Avg time (s): %lf\n", mflops, avg);
     return 0;
 }

@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <timer.h>
+#include "timer.h"
 #include <util.h>
 #include "branch.h"
 
