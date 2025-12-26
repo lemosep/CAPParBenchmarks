@@ -11,8 +11,8 @@ export ITERATIONS=10
 mkdir -p $RESULTSDIR
 
 # tiny small standard large huge
-
-for kernel in fast fn gf is km lu tsp rt nb bc dgemm sp sten gemm; do
+#fast fn gf is km lu tsp rt nb bc dgemm sp sten gemm
+for kernel in fft; do
     echo "running $kernel"
     mkdir -p $RESULTSDIR/$kernel
 
@@ -22,9 +22,9 @@ for kernel in fast fn gf is km lu tsp rt nb bc dgemm sp sten gemm; do
     i=0
     while [ $i -lt $ITERATIONS ]; do
         echo "running weak scaling test: iteration $i"
-        for nprocs in 16; do
+        for nprocs in 1 4 6 8 12 16; do
             mkdir -p $RESULTSDIR/$kernel/${nprocs}-threads
-            for class in tiny; do
+            for class in large; do
                 for regalloc_algo in basic greedy pbqp; do    
                     out_file="$RESULTSDIR/$kernel/${nprocs}-threads/${regalloc_algo}.txt"
                     bin="$BINDIR/$kernel/$regalloc_algo.intel"
