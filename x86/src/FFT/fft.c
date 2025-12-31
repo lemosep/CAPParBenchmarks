@@ -100,7 +100,7 @@ static void class_params(bench_class_t cls, int *out_ln2, int *out_nits) {
     case CLASS_TINY:     *out_ln2 = 10; *out_nits = 2000; break; // N=1024
     case CLASS_SMALL:    *out_ln2 = 12; *out_nits = 1000; break; // N=4096
     case CLASS_STANDARD: *out_ln2 = 16; *out_nits = 200;  break; // N=65536
-    case CLASS_LARGE:    *out_ln2 = 20; *out_nits = 45;   break; // N=262144
+    case CLASS_LARGE:    *out_ln2 = 20; *out_nits = 20;   break; // N=262144
     case CLASS_HUGE:     *out_ln2 = 22; *out_nits = 10;   break; // N=1048576
     default:             *out_ln2 = 16; *out_nits = 200;  break;
   }

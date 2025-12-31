@@ -11,8 +11,8 @@ export ITERATIONS=10
 mkdir -p $RESULTSDIR
 
 # tiny small standard large huge
-#fast fn gf is km lu tsp rt nb bc dgemm sp sten gemm
-for kernel in fft; do
+#fast fn gf is km lu tsp rt nb fft bls bc dgemm sp sten gemm
+for kernel in bls; do
     echo "running $kernel"
     mkdir -p $RESULTSDIR/$kernel
 

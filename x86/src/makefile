@@ -2,10 +2,10 @@
 # Copyright(C) 2025 Eduardo Lemos Paschoalini
 #
 
-#					CAPbench			    | 	  ParRes									
-KERNELS := fast fn gf is km lu tsp rt nb fft bc dgemm sp sten gemm 
+#					CAPbench			        | 	  ParRes									
+KERNELS := fast fn gf is km lu tsp rt nb fft bls bc dgemm sp sten gemm 
 
-.PHONY: fast fn gf is km lu tsp rt nb bc dgemm sp sten gemm
+.PHONY: fast fn gf is km lu tsp rt nb fft bls bc dgemm sp sten gemm
 
 # Builds all kernels.
 all: 
